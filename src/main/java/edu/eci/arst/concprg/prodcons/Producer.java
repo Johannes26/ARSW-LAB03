@@ -52,12 +52,7 @@ public class Producer extends Thread {
             System.out.println("Producer added " + dataSeed);
             queue.add(dataSeed);
             queue.notifyAll();
-            try {
-            Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-            Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    		
+
     	}
     }
 }

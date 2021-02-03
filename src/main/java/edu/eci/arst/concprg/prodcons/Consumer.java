@@ -48,6 +48,12 @@ public class Consumer extends Thread{
             int elem=queue.poll();
             System.out.println("Consumer consumes "+elem);
             queue.notifyAll();
+            try {
+            Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+            Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    		
             
 
     	}
