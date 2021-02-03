@@ -30,38 +30,33 @@ public class Producer extends Thread {
 
     @Override
     public void run() {
-    	this.opera();
+    	while (true)
+    	{
+    		this.opera();
+    	}
+    	
     }
     public void opera() {
     	synchronized(queue) {
-    		while (true)
+    		while (queue.size()>=stockLimit)
     		{
-    			if (queue.size()==0)
-    			{
-    	            dataSeed = dataSeed+ rand.nextInt(100);
-    	            System.out.println("Producer added " + dataSeed);
-    	            queue.add(dataSeed);
-    	            queue.notify();
-    			}
-    			else {
-        			try {
-    					queue.wait();
-    				} catch (InterruptedException e) {
-    					// TODO Auto-generated catch block
-    					e.printStackTrace();
-    				}
-    			}
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
-                }
+    			try {
+					queue.wait();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
     		}
-
-            
-
-            
+            dataSeed = dataSeed+ rand.nextInt(100);
+            System.out.println("Producer added " + dataSeed);
+            queue.add(dataSeed);
+            queue.notifyAll();
+            try {
+            Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+            Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+            }
     		
     	}
     }

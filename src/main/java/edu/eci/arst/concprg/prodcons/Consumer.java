@@ -27,6 +27,7 @@ public class Consumer extends Thread{
         while (true) {
 
         	operacion();
+        	
             
         }
     }
